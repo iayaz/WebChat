@@ -1,0 +1,65 @@
+<div class="border-gray-200 rounded-lg shadow p-2 space-y-4 divide-y">
+  <div class="text-center">Chats</div>
+  <div class="grid grid-cols-3 text-center divide-x">
+    <div class="divide-y">
+      <div class="w-full">Least Priority</div>
+      <div class="chatbox1">
+        <div class="h-96 overflow-y-auto no-scrollbar" #chatConatiner>
+          <!--*ngFor="let chat of leastchat"  add here -->
+          <div class="rounded-lg shadow my-2 bg-slate-200" *ngFor="let chat of leastchat">
+            <div class="text-left p-2 whitespace-normal">
+              {{ chat.message }}
+            </div>
+            <button (click)="upvote(chat , 'primary')">
+              <i class="fa-solid fa-thumbs-up"></i
+              ><span>{{ chat.upvote }}</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="divide-y">
+      <div class="w-full">Medium Priority</div>
+      <div class="chatbox2">
+        <div class="h-96 overflow-y-auto no-scrollbar" #chatConatiner>
+          <div class="rounded-lg shadow my-2 bg-slate-200" *ngFor="let chat of mediumchat">
+            <div class="text-left p-2 whitespace-normal">
+              {{ chat.message }}
+            </div>
+            <button (click)="upvote(chat ,'secondary')">
+              <i class="fa-solid fa-thumbs-up"></i
+              ><span>{{ chat.upvote }}</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="divide-y">
+      <div class="w-full">High Priority</div>
+      <div class="chatbox3">
+        <div class="h-96 overflow-y-auto no-scrollbar" #chatConatiner >
+          <div class="rounded-lg shadow my-2 bg-slate-200" *ngFor="let chat of highchat">
+            <div class="text-left p-2 whitespace-normal">
+              {{ chat.message }}
+            </div>
+            <button (click)="upvote(chat , 'tertiary')">
+              <i class="fa-solid fa-thumbs-up"></i
+              ><span>{{ chat.upvote }}</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex m-2 py-4">
+    <input
+      type="text"
+      class="flex-grow border border-gray-300 rounded-lg p-2 mr-2"
+      [(ngModel)] = "chatMessage"
+    />
+    <button class="m-2 bg-blue-500 text-white px-4 py-2 rounded-lg" (click)="sendMessage()">
+      Send
+    </button>
+  </div>
+</div>
