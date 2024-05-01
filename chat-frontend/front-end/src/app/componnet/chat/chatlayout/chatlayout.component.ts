@@ -1,6 +1,12 @@
 import { WsService } from './../../../service/websockets/ws.service';
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  QueryList,
+  ViewChildren,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 interface Chat {
@@ -22,11 +28,7 @@ export class ChatlayoutComponent implements AfterViewInit {
 
   @ViewChildren('chatConatiner') private chatContainers!: QueryList<ElementRef>;
 
-
-  constructor(private ws:WsService){
-    // this.ws.sendUTF("King Kong is boobies")
-    
-  }
+  constructor(private ws: WsService) {}
 
   ngAfterViewInit() {
     this.scrollToBottom();
@@ -34,11 +36,10 @@ export class ChatlayoutComponent implements AfterViewInit {
 
   scrollToBottom(): void {
     try {
-      this.chatContainers.forEach((chatContainer)=>{
+      this.chatContainers.forEach((chatContainer) => {
         chatContainer.nativeElement.scrollTop =
-        chatContainer.nativeElement.scrollHeight;
-      })
-      
+          chatContainer.nativeElement.scrollHeight;
+      });
     } catch (err) {}
   }
 
@@ -62,6 +63,25 @@ export class ChatlayoutComponent implements AfterViewInit {
       message: this.chatMessage,
       upvote: 0,
     });
+
+    const send1 = {
+      type: 'JOIN_ROOM',
+      payload: {
+        name: 'ayaz',
+        userId: '1',
+        roomId: '1',
+      },
+    };
+    const send = {
+      type: 'SEND_MESSAGE',
+      payload: {
+        userId: '1',
+        roomId: '1',
+        message: this.chatMessage,
+      },
+    };
+    this.ws.sendUTF(send1);
+    this.ws.sendUTF(send);
     this.chatMessage = '';
     this.scrollToBottom();
   }

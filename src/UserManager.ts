@@ -20,7 +20,6 @@ export class UserManager {
     if (!this.rooms.get(roomId)) {
       this.rooms.set(roomId, { users: [] });
     }
-
     this.rooms.get(roomId)?.users.push({
       id: userId,
       name,
@@ -42,7 +41,7 @@ export class UserManager {
   }
   getUser(roomId: string, userId: string): User | null {
     const user = this.rooms.get(roomId)?.users.find(({ id }) => {
-      id === userId;
+      return id === userId;
     });
     return user ?? null;
   }

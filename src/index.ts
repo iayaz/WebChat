@@ -59,7 +59,7 @@ wsServer.on("request", function (request) {
 function messageHandler(ws: connection, message: IncomingMessage) {
   if (message.type === SupportedMessage.JoinRoom) {
     const payload = message.payload;
-    userManager.addUser(payload.name, payload.userId, payload.roomId, ws);
+    userManager.addUser( payload.userId, payload.roomId,payload.name, ws);
   }
 
   if (message.type === SupportedMessage.SendMessage) {

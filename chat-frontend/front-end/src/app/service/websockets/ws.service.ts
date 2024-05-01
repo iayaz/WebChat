@@ -24,12 +24,20 @@ export class WsService {
     this.ws.onmessage = (message) => {
       console.log('Received: ', message.data);
     };
-  }
-  sendUTF(message: any) {
     this.ws.onopen = () => {
       console.log('WebSocket Client Connected');
-      this.sendMessage(message);
     };
+  }
+  sendUTF(message: any) {
+    // this.ws.onopen = () => {
+    //   console.log('WebSocket Client Connected');
+    //   // this.sendMessage(message);
+    // };
+    if (this.ws.readyState === WebSocket.OPEN) {
+      this.sendMessage(message);
+    } else {
+      console.log('WebSocket connection not open.');
+    }
   }
 
   private sendMessage(message: any) {
