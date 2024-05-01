@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class WsService {
   private ws!: WebSocket;
-
+  receivedMessage : Subject<any> = new Subject();
   constructor() {
     this.initializeWebSocket();
   }
@@ -22,9 +23,19 @@ export class WsService {
     };
 
     this.ws.onmessage = (message) => {
+      this.receivedMessage.next(JSON.parse(message.data));
       console.log('Received: ', message.data);
     };
     this.ws.onopen = () => {
+      const initializeUser = {
+        type: 'JOIN_ROOM',
+        payload: {
+          name: 'ayaz',
+          userId: '1',
+          roomId: '1',
+        },
+      };
+      this.ws.send(JSON.stringify(initializeUser))
       console.log('WebSocket Client Connected');
     };
   }
